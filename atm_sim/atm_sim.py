@@ -7,8 +7,9 @@ from termcolor import colored
 
 # Databases
 username_PINS = {'david':'1234'}   # usernames & passwords
-acc_balances = {'david':[100,200,300]}   # username:[chequing, savings, credit]
+user_balances = {'david':[100,200,300]}   # username:[chequing, savings, credit]
 locked_accs = []                   # list of locked accs
+
 username = ''
 
 def login():
@@ -29,7 +30,7 @@ def login():
                     os.system('clear')
                     time.sleep(1)
                     print(colored('\nWelcome ' + username + '!' + '\n', 'green'))
-                    time.sleep(1.5)
+                    time.sleep(1)
                     break
             # INVALID CREDENTIALS
             except:
@@ -48,11 +49,12 @@ def login():
 
 def menu(user):
     while True:
+        balances = user_balances[user]
         os.system('clear')
         print(colored('Welcome ' + user + "!", 'green'))
         print(
         '\n1) Account Balances' +
-        '\n2) Cash Withdrawal' +
+        '\n2) Withdraw' +
         '\n3) Deposit' +
         '\n4) Change PIN' +
         '\n5) Transfer Funds' +
@@ -62,18 +64,23 @@ def menu(user):
 
         # ACCOUNT BALANCES
         if action == '1':
-            os.system('clear')
-            balances = acc_balances[user]
-            print(colored('#### ACCOUNT BALANCES ####', 'green'))
-            print(
-            '\n\nCHEQUING: ', balances[0],
-            '\n\nSAVINGS: ', balances[1],
-            '\n\nCREDIT: ', balances[2]
-            )
-            input("\n\nPress Enter to return to menu")
-
-        # CASH WITHDRAW
+            print_balances(user)
+            input(colored("\n\nPress Enter to return to menu ... ", 'yellow'))
         
+        # WITHDRAW
+        if action == '2':
+            balances = user_balances[user]
+            print_balances(user)
+            selection = input(colored('\nSelect the account you wish to withdraw from: ', 'yellow'))
+            os.system('clear')
+            account = ['Chequing', 'Savings', 'Credit']
+            print('x')
+            print('\n#####', account[int(selection)], 'Account #####\n')
+            print('Available Funds: $' + str(balances[int(selection)-1]))
+            
+            
+
+
 
         # DEPOSIT
 
@@ -85,13 +92,20 @@ def menu(user):
 
         # EXIT
         if action == '7':
+            os.system('clear')
+            print(colored('\n\nSee you next time!\n\n', 'green'))
+            time.sleep(1)
             exit()
 
-        
-
-
-
-
+def print_balances(user):
+        os.system('clear')
+        balances = user_balances[user]
+        print(colored('#### ACCOUNT BALANCES ####', 'green'))
+        print(
+        '\n\n1) CHEQUING: $', balances[0],
+        '\n\n2) SAVINGS: $', balances[1],
+        '\n\n3) CREDIT: $', balances[2]
+        )
 
 if __name__ == "__main__":
     os.system('clear')
