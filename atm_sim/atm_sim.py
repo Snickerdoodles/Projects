@@ -48,54 +48,20 @@ def login():
     return username
 
 def menu(user):
-    while True:
-        balances = user_balances[user]
-        os.system('clear')
-        print(colored('Welcome ' + user + "!", 'green'))
-        print(
-        '\n1) Account Balances' +
-        '\n2) Withdraw' +
-        '\n3) Deposit' +
-        '\n4) Change PIN' +
-        '\n5) Transfer Funds' +
-        '\n6) Recent Transactions'
-        '\n7) Exit')
-        action = input(colored('\nPlease select action: ', 'yellow'))
-
-        # ACCOUNT BALANCES
-        if action == '1':
-            print_balances(user)
-            input(colored("\n\nPress Enter to return to menu ... ", 'yellow'))
-        
-        # WITHDRAW
-        if action == '2':
-            balances = user_balances[user]
-            print_balances(user)
-            selection = input(colored('\nSelect the account you wish to withdraw from: ', 'yellow'))
-            os.system('clear')
-            account = ['Chequing', 'Savings', 'Credit']
-            print('x')
-            print('\n#####', account[int(selection)], 'Account #####\n')
-            print('Available Funds: $' + str(balances[int(selection)-1]))
-            
-            
+    os.system('clear')
+    print(colored('Welcome ' + user + '!', 'green'))
+    actions = ('1) Account Balance\n'
+                '2) Withdraw\n'
+                '3) Deposit\n'
+                '4) Change PIN\n'
+                '5) Transfer Funds\n'
+                '6) Recent Transactions\n'
+                '7) Exit')
+    selection = input(colored('Please select an action', 'yellow'))
+    return int(selection)
 
 
 
-        # DEPOSIT
-
-        # CHANGE PIN
-
-        # TRANSFER FUNDS
-
-        # RECENT TRANSACTIONS
-
-        # EXIT
-        if action == '7':
-            os.system('clear')
-            print(colored('\n\nSee you next time!\n\n', 'green'))
-            time.sleep(1)
-            exit()
 
 def print_balances(user):
         os.system('clear')
