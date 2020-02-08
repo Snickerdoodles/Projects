@@ -4,13 +4,37 @@ import time
 import os
 from termcolor import colored
 
+def main():
+    os.system('clear')
+    user = login()
+    os.system('clear')
+    while True:
+        #print(print_menu(user))
+        selection = input(colored('\n\nPlease select an action: ', 'yellow'))
+        if selection == "1":
+            print_balances(user)
+            input(colored("\nPress Enter to continue...", 'yellow'))
+        elif selection == "2":
+            print_balances(user)
+            acc_withdraw = input(colored('\nSelect account to withdraw funds from: ', 'yellow'))
+            os.system('clear')
+            deposit_withdraw('withdraw', acc_withdraw, user)
+        elif selection == "3":
+            print_balances(user)
+            acc_withdraw = input(colored('\nSelect account to withdraw funds from: ', 'yellow'))
+            os.system('clear')
+            deposit_withdraw('withdraw', acc_withdraw, user)
+        elif selection == "4":
+            print('DWADWAD')
+        elif selection == "5":
+            pass
+        elif selection == "6":
+            pass
+        elif selection == "7":
+            exit()
+        else:
+            print(colored('Invalid selection, please select again.', 'red'))
 
-# Databases
-username_PINS = {'david':'1234'}   # usernames & passwords
-user_balances = {'david':[100,200,300]}   # username:[chequing, savings, credit]
-locked_accs = []                   # list of locked accs
-
-username = ''
 
 def login():
     print(colored('#### LOGIN ####', 'green'))
@@ -29,7 +53,7 @@ def login():
                 if username_PINS[username] == pin:
                     os.system('clear')
                     time.sleep(1)
-                    print(colored('\nWelcome ' + username + '!' + '\n', 'green'))
+                    print(colored('\nWelcome ' + username.capitalize() + '!' + '\n', 'green'))
                     time.sleep(1)
                     break
             # INVALID CREDENTIALS
@@ -47,21 +71,16 @@ def login():
                 exit()
     return username
 
-def menu(user):
-    os.system('clear')
-    print(colored('Welcome ' + user + '!', 'green'))
-    actions = ('1) Account Balance\n'
-                '2) Withdraw\n'
-                '3) Deposit\n'
-                '4) Change PIN\n'
-                '5) Transfer Funds\n'
-                '6) Recent Transactions\n'
-                '7) Exit')
-    selection = input(colored('Please select an action', 'yellow'))
-    return int(selection)
-
-
-
+def print_menu(user):
+    print(colored('Welcome ' + user.capitalize() + '!', 'green'))
+    print('''
+    1) Account Balances
+    2) Withdraw Funds
+    3) Deposit Funds
+    4) Change PIN
+    5) Transfer Funds
+    6) Recent Transactions
+    7) Exit ''')
 
 def print_balances(user):
         os.system('clear')
@@ -73,7 +92,21 @@ def print_balances(user):
         '\n\n3) CREDIT: $', balances[2]
         )
 
+def deposit_withdraw(action, account, user):
+    print(colored('##########################', 'green'))
+    print(colored('##### ' + action.capitalize() + ' Funds #####', 'green'))
+    print(colored('##########################', 'green'))
+    balances = user_balances[user]
+    print('\n\nAvailable Funds:', balances[int(account)-1])
+    balance_change = input(colored('\n\nEnter ' + action + ' amount: ', 'yellow'))
+    print('x')
+
+def change_pin():
+    pass
+
 if __name__ == "__main__":
-    os.system('clear')
-    user = login()
-    menu(user)
+    # Databases
+    username_PINS = {'david':'1234'}   # usernames & passwords
+    user_balances = {'david':[100,200,300]}   # username:[chequing, savings, credit]
+    locked_accs = []                   # list of locked accs
+    main()
